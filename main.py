@@ -18,7 +18,7 @@ def register():
         user = User(name, email, pwd)
         db.session.add(user)
         db.session.commit()
-        render_template(url_for('login'))
+        render_template('login.html')
 
     return render_template('cadastrar.html')
 
