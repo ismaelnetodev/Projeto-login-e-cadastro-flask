@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/ico" href="../static/img/favicon.ico">
+    <title>CodeLab Academy</title>
+</head>
+<body>
+
+    {% if current_user.is_authenticated %}
+    <nav>
+        <img src="../static/img/logo_cor.png" alt="">
+        <ul class="ul-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="#cursos">Cursos</a></li>
+        </ul>
+        
+        <ul class="ul-actions">
+            <p>Olá, {{current_user.name}} 👋</p>
+            <li><a href="/logout">Sair</a></li>
+        </ul>
+    </nav>
+    {% else %}
+    <nav>
+        <img src="../static/img/logo_cor.png" alt="">
+        <ul class="ul-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="#cursos">Cursos</a></li>
+        </ul>
+        <ul class="ul-actions">
+            <li><a href="/cadastrar">Cadastre-se</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+    {% endif %}
+    <main>
+        <div class="curso1">
+            <h2>Curso JavaScript</h2>
+            <a href="/cadastrar"><img src="../static/img/curso_javascript.jpg" width="500px" alt=""></a>
+            <a href="/cadastrar">Matricule-se agora!</a>
+        </div>
+        <div class="curso2">
+            <h2>Curso Instalação e Manuntenção de Computadores</h2>
+            <a href="/cadastrar"><img src="../static/img/curso_man.jpg" width="500px"></a>
+            <a href="/cadastrar">Matricule-se agora!</a>
+        </div>
+    </main>
+
+</body>
+</html>

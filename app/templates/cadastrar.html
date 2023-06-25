@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/ico" href="../static/img/favicon.ico">
+    <title>Cadastro - CodeLab Academy</title>
+</head>
+<body>
+    <div class="main">
+        <form method="POST">
+            <img src="../static/img/logo_cor.png" alt="">
+            
+            <label for="name" class="lb">Nome: </label>
+            <input type="text" name="name" class="input">
+            <br>
+            <label for="email" class="lb">Email: </label>
+            <input type="email" name="email" class="input">
+            <br>
+            <label for="password" class="lb">Senha: </label>
+            <input type="password" name="password" class="input">
+            <br>
+            <input type="submit" value="Cadastre-se" class="sub_button">
+
+            <a href="/login">Já possui cadastro? <span>Faça login</span></a>
+
+        </form>
+    </div>
+</body>
