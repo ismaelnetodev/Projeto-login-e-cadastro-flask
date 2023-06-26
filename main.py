@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
 from app import app, db
-from app.models import User
+from app.models import User, Curso, Inscricao
 
 
 @app.route('/')
@@ -18,9 +18,23 @@ def register():
         user = User(name, email, pwd)
         db.session.add(user)
         db.session.commit()
-        render_template('login.html')
+        return redirect(url_for('home'))
 
     return render_template('cadastrar.html')
+
+@app.route('/cadastro/curso', methods=['GET', 'POST'])
+def cadastrarCurso():
+    if request.method == 'POST':
+        name = request.form['name']
+        preco = request.form['preco']
+        img = request.form['img']
+        desc = request.form['desc']
+
+        curso = Curso(name, img, preco, desc)
+        db.session.add(curso)
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template('cadastro-curso.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -38,6 +52,9 @@ def login():
 
     return render_template('login.html')
 
+@app.route('/cursos')
+def cursos():
+    pass
 
 @app.route('/logout')
 def logout():

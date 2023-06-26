@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/ico" href="../static/img/favicon.ico">
+    <title>Cadastro - CodeLab Academy</title>
+</head>
+<body>
+    <div class="main">
+        <form method="POST">
+            <img src="../static/img/logo_cor.png" alt="">
+            
+            <label for="name" class="lb">Nome: </label>
+            <input type="text" name="name" class="input">
+            <br>
+
+            <label for="img" class="lb">Imagem: </label>
+            <input type="file" name="img" class="input">
+            <br>
+
+            <label for="number" class="lb">Preço: R$</label>
+            <input type="number" name="preco" class="input" min="0" step="0.01">
+            <br>
+            <label for="desc" class="lb">Descrição (Aulas, carga-horária): </label>
+            <input type="textarea" name="desc" class="input">
+            <br>
+            <input type="submit" value="Cadastrar Curso" class="sub_button">
+
+        </form>
+    </div>
+</body>
