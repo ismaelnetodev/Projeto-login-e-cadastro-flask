@@ -36,16 +36,13 @@
     </nav>
     {% endif %}
     <main>
-        <div class="curso1">
-            <h2>Curso JavaScript</h2>
-            <a href="/cadastrar"><img src="../static/img/curso_javascript.jpg" width="400px" alt=""></a>
+        {% for curso, upload, data_base64 in cursos %}
+        <div class="curso">
+            <h2>{{ curso.name }}</h2>
+            <img src="data:image/jpeg;base64,{{ data_base64 }}" width="400px" alt="">
             <a href="/cadastrar">Matricule-se agora!</a>
         </div>
-        <div class="curso2">
-            <h2>Curso Instalação e Manuntenção de Computadores</h2>
-            <a href="/cadastrar"><img src="../static/img/curso_man.jpg" width="400px"></a>
-            <a href="/cadastrar">Matricule-se agora!</a>
-        </div>
+    {% endfor %}
     </main>
 
 </body>

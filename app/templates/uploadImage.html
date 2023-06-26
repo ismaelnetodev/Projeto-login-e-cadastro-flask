@@ -10,20 +10,10 @@
 <body>
     <div class="main">
         <form method="POST" enctype="multipart/form-data">
-            <img src="../static/img/logo_cor.png" alt="">
-            
-            <label for="name" class="lb">Nome: </label>
-            <input type="text" name="name" class="input">
-            <br>
-
-            <label for="number" class="lb">Preço: R$</label>
-            <input type="number" name="preco" class="input" min="0" step="0.01">
-            <br>
-            <label for="desc" class="lb">Descrição (Aulas, carga-horária): </label>
-            <input type="textarea" name="desc" class="input">
-            <br>
+            <label for="img" class="lb">Imagem: </label>
+            <input type="file" name="arquivo" id="img" class="input" accept="image/*">
             <input type="submit" value="Cadastrar Curso" class="sub_button">
-
         </form>
     </div>
 </body>
+</html>

@@ -28,16 +28,25 @@ class Curso(db.Model):
     __tablename__ = 'cursos'
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
-    imagem = db.Column(db.LargeBinary)
     valor = db.Column(db.Float)
     desc = db.Column(db.String(200))
 
-    def __init__(self, name, valor, desc, imagem = None):
+    def __init__(self, name, valor, desc):
         self.name = name
-        self.imagem = imagem
         self.valor = valor
         self.desc = desc
         db.create_all()
+
+class UploadImage(db.Model):
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    filename = db.Column(db.String(50))
+    data = db.Column(db.LargeBinary)
+    curso_img = db.Column(db.Integer, db.ForeignKey('cursos.id'))
+
+    def __init__(self, filename, data, curso_img):
+        self.filename = filename
+        self.data = data
+        self.curso_img = curso_img
 
 class Inscricao(db.Model):
     __tablename__ = 'inscricoes'
@@ -49,5 +58,5 @@ class Inscricao(db.Model):
     def __init__(self, user_id, curso_id, data_inscricao):
         self.user_id = user_id
         self.curso_id = curso_id
-        self.data_inscricao = date.today()
+        self.data_inscricao = data_inscricao
         db.create_all()
