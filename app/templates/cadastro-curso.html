@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="main">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <img src="../static/img/logo_cor.png" alt="">
             
             <label for="name" class="lb">Nome: </label>
@@ -17,7 +17,7 @@
             <br>
 
             <label for="img" class="lb">Imagem: </label>
-            <input type="file" name="img" class="input">
+            <input type="file" name="arquivo" id="img" class="input" accept="image/*">
             <br>
 
             <label for="number" class="lb">Preço: R$</label>

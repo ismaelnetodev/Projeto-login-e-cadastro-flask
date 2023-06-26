@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
 from app import app, db
-from app.models import User, Curso, Inscricao
+from app.models import User, Curso
+import os
 
 
 @app.route('/')
@@ -26,11 +27,15 @@ def register():
 def cadastrarCurso():
     if request.method == 'POST':
         name = request.form['name']
-        preco = request.form['preco']
-        img = request.form['img']
+        preco = float(request.form['preco'])
         desc = request.form['desc']
+        img = request.files['arquivo']
 
-        curso = Curso(name, img, preco, desc)
+        curso = Curso(name=name, valor=preco, desc=desc)
+
+        if img:
+            curso.imagem = img.read()
+
         db.session.add(curso)
         db.session.commit()
         return redirect(url_for('home'))

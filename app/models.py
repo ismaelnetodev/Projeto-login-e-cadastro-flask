@@ -28,19 +28,20 @@ class Curso(db.Model):
     __tablename__ = 'cursos'
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
-    img = db.Column(db.LargeBinary)
+    imagem = db.Column(db.LargeBinary)
     valor = db.Column(db.Float)
     desc = db.Column(db.String(200))
 
-    def __init__(self, name, img, valor, desc):
+    def __init__(self, name, valor, desc, imagem = None):
         self.name = name
-        self.img = img
+        self.imagem = imagem
         self.valor = valor
         self.desc = desc
         db.create_all()
 
-class Inscricao():
+class Inscricao(db.Model):
     __tablename__ = 'inscricoes'
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     curso_id = db.Column(db.Integer, db.ForeignKey('cursos.id'))
     data_inscricao = db.Column(db.DateTime)
