@@ -9,9 +9,13 @@
 </head>
 <body>
     <div class="main">
+        
         <form method="POST" enctype="multipart/form-data">
-            <label for="img" class="lb">Imagem: </label>
-            <input type="file" name="arquivo" id="img" class="input" accept="image/*">
+            <h2>Enviar imagem do curso</h2><br>
+            <label for="img" class="lb-file">Selecione o arquivo
+                <img src="../static/img/upload_icon.png" alt="">
+                <input type="file" name="arquivo" id="img" class="input" accept="image/*">
+            </label><br>
             <input type="submit" value="Cadastrar Curso" class="sub_button">
         </form>
     </div>
