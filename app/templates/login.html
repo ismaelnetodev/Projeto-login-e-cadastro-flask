@@ -10,6 +10,17 @@
 <body>
     <div class="main">
         <form method="POST">
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-messages">
+        {% for message in messages %}
+            <div class="flash-message">{{ message }} ❌</div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
             <img src="../static/img/logo_cor.png" alt="">
             <label for="email" class="lb">E-mail: </label>
             <input type="email" name="email" class="input">

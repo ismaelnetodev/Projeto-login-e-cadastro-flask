@@ -177,6 +177,11 @@ main a{
     font-family: 'Nunito';
 }
 
+.main form .flash-message{
+    color: #f5f5f5;
+    font-family: 'Nunito';
+}
+
 form > img{
     display: flex;
     margin: 10px;

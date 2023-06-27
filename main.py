@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from app import app, db
 from app.models import User, Curso, UploadImage, Inscricao
@@ -75,7 +75,8 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if not user or not user.verify_password(pwd):
-            return redirect(url_for('/'))        
+            flash('E-mail ou senha incorretos, tente novamente. ', 'error')
+            return redirect(url_for('login'))        
 
         login_user(user)
         return redirect(url_for('cursos'))
