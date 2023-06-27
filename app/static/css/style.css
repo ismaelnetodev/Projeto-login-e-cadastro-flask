@@ -244,6 +244,10 @@ input[type=file]{
     color: #f5f5f5;
 }
 
+.curso form{
+    
+}
+
 footer{
     display: flex;
     justify-content: flex-start;
