@@ -11,26 +11,26 @@
     {% include 'nav.html' %}
 
     <main>
-        <h1>Cursos Disponíveis</h1>
-        <div class="cursos-container">
             {% for curso, upload, data_base64 in cursos %}
-            <div class="curso-card">
+            <div class="curso">
                 <h2>{{ curso.name }}</h2>
                 <p>{{ curso.desc }}</p>
                 <p>Valor: R$ {{ curso.valor }}</p>
-                <img src="data:image/jpeg;base64,{{ data_base64 }}" width="400px" alt="">
+                <img src="data:image/jpeg;base64,{{ data_base64 }}" width="325px" alt="">
                 {% if current_user.is_authenticated %}
                     {% if not current_user.is_enrolled(curso.id) %}
                         <a href="{{ url_for('matricular', curso_id=curso.id) }}">Matricular</a>
                     {% else %}
-                        <p>Você já está matriculado neste curso.</p>
+                        <p class="matriculado">Matriculado neste curso. &#x2705</p>
                     {% endif %}
                 {% else %}
-                    <p>Faça login para se matricular.</p>
+                    <p>Faça <a href="/login" class="do-login"> login </a> para se matricular.</p>
                 {% endif %}
+
             </div>
             {% endfor %}
-    </div>
+            
+            <a href="/cadastro/curso">+ Cadastrar novo curso.</a>
     </main>
 </body>
 </html>
