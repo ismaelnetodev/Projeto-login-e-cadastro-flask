@@ -1,21 +1,23 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 from app import app, db
-from app.models import User, Curso, UploadImage
+from app.models import User, Curso, UploadImage, Inscricao
 import base64
-
+from datetime import date
 
 @app.route('/')   
 def home():
     cursos = Curso.query.all()
-    cursos_base64 = []
+    cursos_with_images = []
 
     for curso in cursos:
         upload = UploadImage.query.filter_by(curso_img=curso.id).first()
         if upload:
             data_base64 = base64.b64encode(upload.data).decode('utf-8')
-            cursos_base64.append((curso, upload, data_base64))
-    return render_template('index.html', cursos=cursos_base64)
+            cursos_with_images.append((curso, upload, data_base64))
+
+    return render_template('index.html', cursos=cursos_with_images)
+
 
 @app.route('/cadastrar', methods=['GET', 'POST'])
 def register():
@@ -51,11 +53,15 @@ def cadastrarCurso():
 def uploadImage(curso_id):
     if request.method == 'POST':
         file = request.files['arquivo']
-        upload = UploadImage(filename=file.filename, data=file.read(), curso_img=curso_id)
-        db.session.add(upload)
-        db.session.commit()
+        curso = Curso.query.get(curso_id)
 
-        return redirect(url_for('home'))
+        if curso:
+            upload = UploadImage(filename=file.filename, data=file.read(), curso_img=curso_id)
+            db.session.add(upload)
+            db.session.commit()
+            return redirect(url_for('cursos', curso_id=curso_id))
+        else:
+            return redirect(url_for('home'))
     
     return render_template('uploadImage.html')
 
@@ -72,17 +78,38 @@ def login():
             return redirect(url_for('/'))        
 
         login_user(user)
-        return redirect(url_for('home'))
+        return redirect(url_for('cursos'))
 
     return render_template('login.html')
 
 @app.route('/cursos')
 def cursos():
-    pass
+    cursos = Curso.query.all()
+    cursos_with_images = []
+
+    for curso in cursos:
+        upload = UploadImage.query.filter_by(curso_img=curso.id).first()
+        if upload:
+            data_base64 = base64.b64encode(upload.data).decode('utf-8')
+            cursos_with_images.append((curso, upload, data_base64))
+
+    return render_template('cursos.html', cursos=cursos_with_images)
+
+@app.route('/matricular/<int:curso_id>')
+def matricular(curso_id):
+    if current_user.is_authenticated:
+        inscricao = Inscricao(user_id=current_user.id, curso_id=curso_id, data_inscricao=date.today())
+        db.session.add(inscricao)
+        db.session.commit()
+    return redirect(url_for('cursos'))
 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
-app.run(debug=True)
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+
+    app.run(debug=True)

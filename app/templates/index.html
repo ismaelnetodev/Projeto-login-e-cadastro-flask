@@ -8,7 +8,6 @@
     <title>CodeLab Academy</title>
 </head>
 <body>
-
     {% if current_user.is_authenticated %}
     <nav>
         <img src="../static/img/logo_cor.png" alt="">
@@ -27,7 +26,7 @@
         <img src="../static/img/logo_cor.png" alt="">
         <ul class="ul-nav">
             <li><a href="/">Home</a></li>
-            <li><a href="#cursos">Cursos</a></li>
+            <li><a href="/cursos">Cursos</a></li>
         </ul>
         <ul class="ul-actions">
             <li><a href="/cadastrar">Cadastre-se</a></li>
@@ -40,9 +39,9 @@
         <div class="curso">
             <h2>{{ curso.name }}</h2>
             <img src="data:image/jpeg;base64,{{ data_base64 }}" width="400px" alt="">
-            <a href="/cadastrar">Matricule-se agora!</a>
+            <a href="/login">Matricule-se agora!</a>
         </div>
-    {% endfor %}
+        {% endfor %}
     </main>
 
 </body>

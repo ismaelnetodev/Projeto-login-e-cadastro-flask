@@ -6,9 +6,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///codelab.db'
 app.config['SECRET_KEY'] = 'secret'
 
-UPLOAD_FOLDER = 'uploads/'
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 login_manager = LoginManager(app)

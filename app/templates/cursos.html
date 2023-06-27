@@ -8,21 +8,29 @@
     <title>CodeLab Academy</title>
 </head>
 <body>
+    {% include 'nav.html' %}
 
-    {% if current_user.is_authenticated %}
-    <nav>
-        <img src="../static/img/logo_cor.png" alt="">
-        <ul class="ul-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="#cursos">Cursos</a></li>
-        </ul>
-        
-        <ul class="ul-actions">
-            <p>Olá, {{current_user.name}} 👋</p>
-            <li><a href="/logout">Sair</a></li>
-        </ul>
-    </nav>
-
-    {% endif %}
+    <main>
+        <h1>Cursos Disponíveis</h1>
+        <div class="cursos-container">
+            {% for curso, upload, data_base64 in cursos %}
+            <div class="curso-card">
+                <h2>{{ curso.name }}</h2>
+                <p>{{ curso.desc }}</p>
+                <p>Valor: R$ {{ curso.valor }}</p>
+                <img src="data:image/jpeg;base64,{{ data_base64 }}" width="400px" alt="">
+                {% if current_user.is_authenticated %}
+                    {% if not current_user.is_enrolled(curso.id) %}
+                        <a href="{{ url_for('matricular', curso_id=curso.id) }}">Matricular</a>
+                    {% else %}
+                        <p>Você já está matriculado neste curso.</p>
+                    {% endif %}
+                {% else %}
+                    <p>Faça login para se matricular.</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+    </div>
+    </main>
 </body>
 </html>

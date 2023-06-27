@@ -1,7 +1,6 @@
 from app import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from datetime import date
 
 
 @login_manager.user_loader
@@ -19,7 +18,11 @@ class User(db.Model, UserMixin):
         self.name = name
         self.email = email
         self.password = generate_password_hash(password)
-        db.create_all()
+        # db.create_all()
+
+    def is_enrolled(self, curso_id):
+        inscricao = Inscricao.query.filter_by(user_id=self.id, curso_id=curso_id).first()
+        return inscricao is not None
 
     def verify_password(self, pwd):
         return check_password_hash(self.password, pwd)
@@ -35,7 +38,7 @@ class Curso(db.Model):
         self.name = name
         self.valor = valor
         self.desc = desc
-        db.create_all()
+        # db.create_all()
 
 class UploadImage(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
@@ -47,6 +50,7 @@ class UploadImage(db.Model):
         self.filename = filename
         self.data = data
         self.curso_img = curso_img
+        # db.create_all()
 
 class Inscricao(db.Model):
     __tablename__ = 'inscricoes'
@@ -59,4 +63,4 @@ class Inscricao(db.Model):
         self.user_id = user_id
         self.curso_id = curso_id
         self.data_inscricao = data_inscricao
-        db.create_all()
+        # db.create_all()
