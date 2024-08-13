@@ -26,7 +26,7 @@ def register():
         email = request.form['email']
         pwd = request.form['password']
 
-        user = User(name, email, pwd, False)
+        user = User(name, email, pwd)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('home'))
